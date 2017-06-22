@@ -258,7 +258,96 @@ drop.get("todos") {
     let todos = TodoStore.sharedInstance
     let json: [Todo] = todos.listItems()
     return try JSON(node: json)
+    
+    
+    
 }
+
+TodoStore.sharedInstance.addInitialTodoItems()
+
+drop.get("login"){
+    
+    request in
+    
+    guard let userName = request.headers["userName"],
+            let password = request.headers["password"]
+    
+    else{
+        return try JSON(node:["message":"please provide user name and password"])
+        
+    }
+    
+    var resultJSON = [String:String]()
+    
+    
+    
+    if userName == "user" && password == "pass"{
+     
+        
+       resultJSON = ["message":"Success, you are authorized to use the backend"]
+        
+        //resultJSON=["success":true]
+        
+        
+    } else{
+        resultJSON = ["message":"Failure, you are not authorized to use the backend"]
+        
+        //resultJSON=["success":false]
+
+    }
+    
+    return try JSON(node: resultJSON)
+    
+    
+    
+}
+
+
+drop.get("register"){
+    
+    request in
+    
+    guard let username = request.headers["username"],
+        let password = request.headers["password"]
+        
+        else{
+            return try JSON(node:["message":"please provide user name and password"])
+            
+    }
+    
+    var resultJSON = [String:String]()
+    
+    
+    
+    if username == "Alain" && password == "1234"{
+        
+        
+        resultJSON = ["message":"Success, you are authorized to use the backend"]
+        
+        //resultJSON=["success":true]
+        
+        
+    } else{
+        resultJSON = ["message":"Failure, you are not authorized to use the backend"]
+        
+        //resultJSON=["success":false]
+        
+    }
+    
+    return try JSON(node: resultJSON)
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
 
 /// Get a specific todo item
 drop.get("todo") {
